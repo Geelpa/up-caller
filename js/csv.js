@@ -53,8 +53,7 @@ function processarCliente(linha) {
         ),
 
         plano: obterCampo(linha, [
-            "Descrição do plano",
-            "Plano"
+            "Descrição",
         ]),
 
         statusContrato: obterCampo(linha, [
