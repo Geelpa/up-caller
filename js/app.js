@@ -1,14 +1,9 @@
-const state = {
-    clientes: [],
-    clientesFiltrados: []
-};
-
 document.addEventListener("DOMContentLoaded", () => {
+    inicializarFiltros();
     atualizarContadores();
 });
 
 function aplicarFiltros() {
-
     const plano = document.getElementById("planFilter").value;
     const idade = document.getElementById("ageFilter").value;
     const contato = document.getElementById("contactFilter").value;
@@ -20,29 +15,26 @@ function aplicarFiltros() {
 
     state.clientesFiltrados = state.clientes.filter(cliente => {
 
-        // Plano
         if (plano && cliente.plano !== plano)
             return false;
 
-        // Contato
         if (contato && cliente.contato !== contato)
             return false;
 
-        // Pesquisa
         if (
             pesquisa &&
             !cliente.razao.toLowerCase().includes(pesquisa)
         )
             return false;
 
-        // Idade
-        if (idade && !validarFaixaIdade(cliente.idade, idade))
+        if (
+            idade &&
+            !validarFaixaIdade(cliente.idade, idade)
+        )
             return false;
 
         return true;
-
     });
 
     renderizarTabela(state.clientesFiltrados);
-
 }

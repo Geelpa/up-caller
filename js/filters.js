@@ -1,20 +1,24 @@
 function inicializarFiltros() {
 
-    document
-        .getElementById("planFilter")
-        .addEventListener("change", aplicarFiltros);
+    document.getElementById("planFilter").addEventListener("change", () => {
+        console.log("Plano alterado");
+        aplicarFiltros();
+    });
 
-    document
-        .getElementById("ageFilter")
-        .addEventListener("change", aplicarFiltros);
+    document.getElementById("ageFilter").addEventListener("change", () => {
+        console.log("Idade alterada");
+        aplicarFiltros();
+    });
 
-    document
-        .getElementById("contactFilter")
-        .addEventListener("change", aplicarFiltros);
+    document.getElementById("contactFilter").addEventListener("change", () => {
+        console.log("Contato alterado");
+        aplicarFiltros();
+    });
 
-    document
-        .getElementById("searchInput")
-        .addEventListener("input", aplicarFiltros);
+    document.getElementById("searchInput").addEventListener("input", () => {
+        console.log("Pesquisa");
+        aplicarFiltros();
+    });
 
 }
 
@@ -45,10 +49,13 @@ function validarFaixaIdade(idade, faixa) {
 }
 
 function popularFiltros() {
-
-    const planos = [...new Set(
-        state.clientes.map(c => c.plano)
-    )].sort();
+    const planos = [
+        ...new Set(
+            state.clientes
+                .map(c => c.plano)
+                .filter(Boolean)
+        )
+    ].sort();
 
     const selectPlano =
         document.getElementById("planFilter");
@@ -89,5 +96,47 @@ function popularFiltros() {
             </option>`;
 
     });
+}
+
+function aplicarFiltros() {
+
+    const plano = document.getElementById("planFilter").value;
+    const idade = document.getElementById("ageFilter").value;
+    const contato = document.getElementById("contactFilter").value;
+    const pesquisa = document
+        .getElementById("searchInput")
+        .value
+        .toLowerCase()
+        .trim();
+
+    state.clientesFiltrados = state.clientes.filter(cliente => {
+
+        // Filtro por plano
+        if (plano && cliente.plano !== plano)
+            return false;
+
+        // Filtro por status
+        if (contato && cliente.contato !== contato)
+            return false;
+
+        // Pesquisa por nome
+        if (
+            pesquisa &&
+            !cliente.razao.toLowerCase().includes(pesquisa)
+        )
+            return false;
+
+        // Faixa etária
+        if (
+            idade &&
+            !validarFaixaIdade(cliente.idade, idade)
+        )
+            return false;
+
+        return true;
+
+    });
+
+    renderizarTabela(state.clientesFiltrados);
 
 }
