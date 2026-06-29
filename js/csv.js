@@ -17,6 +17,8 @@ function importarCSV(event) {
 
             state.clientes = resultado.data.map(processarCliente);
 
+            popularFiltros();
+
             state.clientesFiltrados = [...state.clientes];
 
             renderizarTabela(state.clientesFiltrados);

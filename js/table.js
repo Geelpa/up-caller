@@ -164,15 +164,22 @@ function configurarSelects() {
 
             select.onchange = () => {
 
-                atualizarStatus(
+                const id = select.dataset.id;
+                const novoStatus = select.value;
 
-                    select.dataset.id,
+                // Salva no localStorage
+                atualizarStatus(id, novoStatus);
 
-                    select.value
+                // Atualiza o objeto em memória
+                const cliente = state.clientes.find(c => c.id == id);
 
-                );
+                if (cliente) {
+                    cliente.contato = novoStatus;
+                }
 
                 atualizarContadores();
+
+                aplicarFiltros();
 
             };
 
