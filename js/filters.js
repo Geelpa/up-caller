@@ -1,24 +1,16 @@
 function inicializarFiltros() {
 
-    document.getElementById("planFilter").addEventListener("change", () => {
-        console.log("Plano alterado");
-        aplicarFiltros();
-    });
+    document.getElementById("planFilter")
+        .addEventListener("change", aplicarFiltros);
 
-    document.getElementById("ageFilter").addEventListener("change", () => {
-        console.log("Idade alterada");
-        aplicarFiltros();
-    });
+    document.getElementById("ageFilter")
+        .addEventListener("change", aplicarFiltros);
 
-    document.getElementById("contactFilter").addEventListener("change", () => {
-        console.log("Contato alterado");
-        aplicarFiltros();
-    });
+    document.getElementById("contactFilter")
+        .addEventListener("change", aplicarFiltros);
 
-    document.getElementById("searchInput").addEventListener("input", () => {
-        console.log("Pesquisa");
-        aplicarFiltros();
-    });
+    document.getElementById("searchInput")
+        .addEventListener("input", aplicarFiltros);
 
 }
 
@@ -100,43 +92,31 @@ function popularFiltros() {
 
 function aplicarFiltros() {
 
-    const plano = document.getElementById("planFilter").value;
-    const idade = document.getElementById("ageFilter").value;
-    const contato = document.getElementById("contactFilter").value;
-    const pesquisa = document
-        .getElementById("searchInput")
-        .value
-        .toLowerCase()
-        .trim();
+    const plan = document.getElementById("planFilter");
+    const age = document.getElementById("ageFilter");
+    const contact = document.getElementById("contactFilter");
+    const search = document.getElementById("searchInput");
+
+    if (!plan || !age || !contact || !search) return;
+
+    const plano = plan.value;
+    const idade = age.value;
+    const contato = contact.value;
+    const pesquisa = search.value.toLowerCase().trim();
 
     state.clientesFiltrados = state.clientes.filter(cliente => {
 
-        // Filtro por plano
-        if (plano && cliente.plano !== plano)
-            return false;
+        if (plano && cliente.plano !== plano) return false;
 
-        // Filtro por status
-        if (contato && cliente.contato !== contato)
-            return false;
+        if (contato && cliente.contato !== contato) return false;
 
-        // Pesquisa por nome
-        if (
-            pesquisa &&
-            !cliente.razao.toLowerCase().includes(pesquisa)
-        )
-            return false;
+        if (pesquisa && !cliente.razao.toLowerCase().includes(pesquisa)) return false;
 
-        // Faixa etária
-        if (
-            idade &&
-            !validarFaixaIdade(cliente.idade, idade)
-        )
-            return false;
+        if (idade && !validarFaixaIdade(cliente.idade, idade)) return false;
 
         return true;
 
     });
 
     renderizarTabela(state.clientesFiltrados);
-
 }

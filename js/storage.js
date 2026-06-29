@@ -1,26 +1,28 @@
-const STORAGE_KEY = "campanha-upgrade-status";
+const STORAGE_CLIENTES_KEY = "campanha-clientes";
+const STORAGE_STATUS_KEY = "campanha-status";
 
-/**
- * Retorna todos os status salvos.
- */
-function obterStatusSalvos() {
-
-    const dados = localStorage.getItem(STORAGE_KEY);
-
-    return dados ? JSON.parse(dados) : {};
-
+function salvarClientes(clientes) {
+    localStorage.setItem(
+        STORAGE_CLIENTES_KEY,
+        JSON.stringify(clientes)
+    );
 }
 
-/**
- * Salva todos os status.
- */
-function salvarStatusSalvos(status) {
+function recuperarClientes() {
+    const dados = localStorage.getItem(STORAGE_CLIENTES_KEY);
+    return dados ? JSON.parse(dados) : [];
+}
 
+function obterStatusSalvos() {
+    const dados = localStorage.getItem(STORAGE_STATUS_KEY);
+    return dados ? JSON.parse(dados) : {};
+}
+
+function salvarStatusSalvos(status) {
     localStorage.setItem(
-        STORAGE_KEY,
+        STORAGE_STATUS_KEY,
         JSON.stringify(status)
     );
-
 }
 
 /**

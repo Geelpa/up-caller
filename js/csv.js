@@ -14,15 +14,15 @@ function importarCSV(event) {
         skipEmptyLines: true,
 
         complete(resultado) {
+            const clientes = resultado.data.map(processarCliente);
 
-            state.clientes = resultado.data.map(processarCliente);
+            state.clientes = clientes;
+            state.clientesFiltrados = [...clientes];
 
-            state.clientesFiltrados = [...state.clientes];
+            salvarClientes(clientes);
 
             popularFiltros();
-
             renderizarTabela(state.clientesFiltrados);
-
         }
 
     });

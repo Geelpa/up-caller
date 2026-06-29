@@ -1,8 +1,21 @@
 document.addEventListener("DOMContentLoaded", () => {
+
     inicializarFiltros();
+
+    const clientesSalvos = recuperarClientes();
+
+    if (clientesSalvos.length > 0) {
+
+        state.clientes = clientesSalvos;
+        state.clientesFiltrados = [...clientesSalvos];
+
+        popularFiltros();
+        renderizarTabela(state.clientesFiltrados);
+
+    }
+
     atualizarContadores();
 });
-
 function aplicarFiltros() {
     const plano = document.getElementById("planFilter").value;
     const idade = document.getElementById("ageFilter").value;
