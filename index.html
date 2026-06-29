@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Campanha de Upgrade</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+</head>
+
+<body class="bg-slate-100">
+
+    <div class="max-w-7xl mx-auto p-6">
+
+        <div class="bg-white rounded-xl shadow p-6 mb-6">
+
+            <h1 class="text-3xl font-bold">
+                Campanha de Upgrade
+            </h1>
+
+            <p class="text-gray-500 mt-2">
+                Analise clientes com maior potencial de atualização de plano.
+            </p>
+
+        </div>
+
+        <div class="bg-white rounded-xl shadow p-6 mb-6">
+
+            <h2 class="font-semibold text-lg mb-4">
+                Importar CSV
+            </h2>
+
+            <input id="csvFile" type="file" accept=".csv" class="block w-full border rounded-lg p-3">
+
+        </div>
+
+        <div class="bg-white rounded-xl shadow p-6 mb-6">
+
+            <h2 class="font-semibold text-lg mb-4">
+                Filtros
+            </h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+
+                <div>
+
+                    <label class="text-sm text-gray-500">
+                        Plano
+                    </label>
+
+                    <select id="planFilter" class="w-full border rounded-lg p-2 mt-1">
+                        <option value="">Todos</option>
+                    </select>
+
+                </div>
+
+                <div>
+
+                    <label class="text-sm text-gray-500">
+                        Faixa etária
+                    </label>
+
+                    <select id="ageFilter" class="w-full border rounded-lg p-2 mt-1">
+                        <option value="">Todas</option>
+                        <option value="18-35">18-35</option>
+                        <option value="36-49">36-49</option>
+                        <option value="50-59">50-59</option>
+                        <option value="60+">60+</option>
+                    </select>
+
+                </div>
+
+                <div>
+
+                    <label class="text-sm text-gray-500">
+                        Status do contato
+                    </label>
+
+                    <select id="contactFilter" class="w-full border rounded-lg p-2 mt-1">
+                        <option value="">Todos</option>
+                    </select>
+
+                </div>
+
+                <div>
+
+                    <label class="text-sm text-gray-500">
+                        Pesquisar
+                    </label>
+
+                    <input id="searchInput" class="w-full border rounded-lg p-2 mt-1" placeholder="Nome do cliente">
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-5 gap-4 mb-6">
+
+            <div class="bg-white rounded-xl shadow p-4">
+                <p class="text-gray-500 text-sm">Clientes</p>
+                <p id="totalClients" class="text-2xl font-bold">0</p>
+            </div>
+
+            <div class="bg-white rounded-xl shadow p-4">
+                <p class="text-gray-500 text-sm">Sem contato</p>
+                <p id="countSemContato" class="text-2xl font-bold">0</p>
+            </div>
+
+            <div class="bg-white rounded-xl shadow p-4">
+                <p class="text-gray-500 text-sm">Em andamento</p>
+                <p id="countAndamento" class="text-2xl font-bold">0</p>
+            </div>
+
+            <div class="bg-white rounded-xl shadow p-4">
+                <p class="text-gray-500 text-sm">Sucesso</p>
+                <p id="countSucesso" class="text-2xl font-bold">0</p>
+            </div>
+
+            <div class="bg-white rounded-xl shadow p-4">
+                <p class="text-gray-500 text-sm">Recusou</p>
+                <p id="countRecusou" class="text-2xl font-bold">0</p>
+            </div>
+
+        </div>
+
+        <div class="bg-white rounded-xl shadow overflow-auto">
+
+            <table class="min-w-full">
+
+                <thead class="bg-slate-200">
+
+                    <tr>
+
+                        <th class="p-3 text-left">Copiar</th>
+                        <th class="p-3 text-left">Razão</th>
+                        <th class="p-3 text-left">Plano</th>
+                        <th class="p-3 text-left">Idade</th>
+                        <th class="p-3 text-left">Ativação</th>
+                        <th class="p-3 text-left">Pago até</th>
+                        <th class="p-3 text-left">Contrato</th>
+                        <th class="p-3 text-left">Contato</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="tableBody">
+
+                    <tr>
+
+                        <td colspan="8" class="text-center p-10 text-gray-400">
+                            Nenhum CSV carregado.
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+    <script src="utils.js"></script>
+    <script src="storage.js"></script>
+    <script src="filters.js"></script>
+    <script src="table.js"></script>
+    <script src="csv.js"></script>
+    <script src="app.js"></script>
+
+</body>
+
+</html>
